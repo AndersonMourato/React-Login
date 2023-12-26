@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ButtonStyled = styled.button`
+const ButtonCustom = styled.button`
     color: #fff;
     font-size:20px;
     background-color:#6a6a6a;
@@ -13,9 +13,19 @@ const ButtonStyled = styled.button`
     cursor: pointer;
 `;
 
-const Button = ()=>{
+const Button = ( props )=>{
     return(
-        <ButtonStyled> Press </ButtonStyled>
+        <ButtonCustom
+            id = { props.id }
+            className = { props.class }
+            type = { props.type }
+            name = { props.name }
+            value = { props.value }
+            onChange={ props.onChange }
+            onClick={ props.onClick }
+        >
+            { props.value }
+        </ButtonCustom>
     )
 }
 export default Button;

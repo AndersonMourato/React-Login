@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const InputText = styled.input`
+const InputCustom = styled.input`
     color: #fff;
     font-size:20px;
     background-color:transparent;
@@ -17,10 +17,20 @@ const InputText = styled.input`
         opacity: 0.7;
     }
 `;
-
-const Input = ()=>{
+ 
+const Input = (props)=>{
     return(
-        <InputText type="text" placeholder="Testando"/>
+        <InputCustom
+            id = { props.id }
+            className = { props.class }
+            type = { props.type }
+            name = { props.name }
+            value = { props.value }
+            placeholder = { props.placeholder }
+            checked = { props.checked }
+            onChange={ props.onChange }
+            onClick={ props.onClick }
+        />
     )
 }
 export default Input;

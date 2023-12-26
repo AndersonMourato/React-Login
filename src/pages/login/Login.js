@@ -44,19 +44,47 @@ const Form = styled.form`
 
 
 const Login = ()=>{
+
+    function handleChage(ev){
+        console.log("Digitando..." + ev.target.name, ev.target.value)
+    }
+
+
     return(
         <Container>
             <Form>
                 <h1> Faça seu Login </h1>
-                <Input/> 
-                <Input/>   
-                <Input/>   
-                <Input/>     
+
+                <Input
+                    name="nome"
+                    type="text"
+                    placeholder="Digite seu nome"
+                    onChange={ (ev)=> handleChage(ev) }
+                /> 
+
+                <Input
+                    name="email"
+                    type="email"
+                    placeholder="Digite seu e-mail"
+                    onChange={ (ev)=> handleChage(ev) }
+                /> 
+
+                <Input
+                    name="password"
+                    type="password"
+                    placeholder="Digite sua senha"
+                    onChange={ (ev)=> handleChage(ev) }
+                />      
+
+     
                 <div>
                     <p> Não possui conta? </p>
-                    <a>Cadastrar</a>
+                    <a href="#">Cadastrar</a>
                 </div>
-                <Button/>
+                <Button
+                    type="submit"
+                    value="Entrar"
+                />
             </Form>
         </Container>
         )
