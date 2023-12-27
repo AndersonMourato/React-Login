@@ -11,9 +11,13 @@ const ButtonCustom = styled.button`
     width:100%;
     height:50px;
     cursor: pointer;
+    
+    ${props => props.disabled === true && ` opacity: 0.2`}
 `;
 
+
 const Button = ( props )=>{
+
     return(
         <ButtonCustom
             id = { props.id }
@@ -23,6 +27,7 @@ const Button = ( props )=>{
             value = { props.value }
             onChange={ props.onChange }
             onClick={ props.onClick }
+            disabled={ props.disabled }
         >
             { props.value }
         </ButtonCustom>

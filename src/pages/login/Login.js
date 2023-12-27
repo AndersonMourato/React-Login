@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
+
+import { formValidation } from "./validation/validation";
 
 const Container = styled.div`
     display:flex;
@@ -45,8 +47,28 @@ const Form = styled.form`
 
 const Login = ()=>{
 
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState(false);
+
     function handleChage(ev){
-        console.log("Digitando..." + ev.target.name, ev.target.value)
+        setForm({...form, [ev.target.name]: ev.target.value})
+        
+        formValidation(form)
+    }
+
+    
+    function handleSubimit(ev){
+        ev.preventDefault();
+        
+        try{
+            setLoading(true)
+            alert("Loged");
+
+        }catch{
+            alert("Verifique os campos preenchidos e tente novamente");
+        }
+      
+
     }
 
 
@@ -61,14 +83,12 @@ const Login = ()=>{
                     placeholder="Digite seu nome"
                     onChange={ (ev)=> handleChage(ev) }
                 /> 
-
                 <Input
                     name="email"
                     type="email"
                     placeholder="Digite seu e-mail"
                     onChange={ (ev)=> handleChage(ev) }
                 /> 
-
                 <Input
                     name="password"
                     type="password"
@@ -76,15 +96,18 @@ const Login = ()=>{
                     onChange={ (ev)=> handleChage(ev) }
                 />      
 
-     
                 <div>
                     <p> Não possui conta? </p>
                     <a href="#">Cadastrar</a>
                 </div>
+
                 <Button
                     type="submit"
                     value="Entrar"
+                    onClick={(ev)=> handleSubimit(ev) }
+                    disabled={ !formValidation(form) }
                 />
+
             </Form>
         </Container>
         )
