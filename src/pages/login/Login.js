@@ -4,6 +4,7 @@ import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
 import { formValidation } from "./validation/validation";
+import { writeUserData, getDbTable, getLogin } from "../../database/firebase"
 
 const Container = styled.div`
     display:flex;
@@ -52,33 +53,28 @@ const Login = ()=>{
 
     function handleChage(ev){
         setForm({...form, [ev.target.name]: ev.target.value})
-        
-        formValidation(form)
     }
 
-    
     function handleSubimit(ev){
         ev.preventDefault();
         
         try{
-            setLoading(true)
-            alert("Loged");
-
+            //writeUserData(form.name, form.email, form.password) && setLoading(true);
+            getLogin(form.email, form.password).then( result => console.log(result))
+            
         }catch{
             alert("Verifique os campos preenchidos e tente novamente");
         }
-      
-
     }
 
 
     return(
         <Container>
             <Form>
-                <h1> Faça seu Login </h1>
+                <h1> Faça seu Cadastro </h1>
 
                 <Input
-                    name="nome"
+                    name="name"
                     type="text"
                     placeholder="Digite seu nome"
                     onChange={ (ev)=> handleChage(ev) }
@@ -103,7 +99,7 @@ const Login = ()=>{
 
                 <Button
                     type="submit"
-                    value="Entrar"
+                    value="Enviar"
                     onClick={(ev)=> handleSubimit(ev) }
                     disabled={ !formValidation(form) }
                 />
