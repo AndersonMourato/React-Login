@@ -16,7 +16,7 @@ const firebaseConfig = {
 const appFire = initializeApp(firebaseConfig);
 const analytics = getAnalytics(appFire);
 
-export function writeUserData(name, email, password) {
+export function setUser(name, email, password) {
     const db = getDatabase();
     const kay = push(ref(db, 'users')).key;
     set(ref(db, 'users/' + kay ), {
@@ -33,7 +33,6 @@ export function writeUserData(name, email, password) {
         return false
     })    
   }
-
 
 export function getDbTable( talbe ){
     const dbRef = ref(getDatabase());
@@ -52,20 +51,17 @@ export function getDbTable( talbe ){
     return data;
 }
 
-export function getLogin( email, password ){
+export function getLogin( email, password ){ 
     const dbRef = ref(getDatabase());
     const data = get(child(dbRef, "users/")).then((snapshot) => {
     if (snapshot.exists()) {
         alert("loading...");
-        const array = Object.keys(snapshot.val());
-        // array.map((user, k)=>{
-        //     if(user.email === email && user.password === password){
-        //         return true
-        //     }else{
-        //         alert("Login ou senha invalido!");
-        //     }
-        // })
-        console.log(array[0])
+        const array = Object.values(snapshot.val());
+        for(let i=0; i < array.length; i++){
+            if(array[i].email === email && array[i].password === password){
+                return true
+            }
+        }
     } else {
         alert("No data available table");
     }

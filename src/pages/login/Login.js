@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
 import { formValidation } from "./validation/validation";
-import { writeUserData, getDbTable, getLogin } from "../../database/firebase"
+import { setUser, getDbTable, getLogin } from "../../database/firebase"
 
 const Container = styled.div`
     display:flex;
+    flex-direction:column;
     justify-content:center;
     align-items:center;
     background-color:#383838;
@@ -45,6 +47,32 @@ const Form = styled.form`
     }
 `;
 
+const MenuContainer = styled.ul`
+    display:flex;
+    padding:1rem 3rem;
+    
+    flex-direction:row;
+    align-items:center;
+    background-color:#201d1d;
+    width:100%;
+    max-width:450px;
+
+    li{
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content:center;
+        color:#FFF;
+        border-bottom: 2px solid #2aa2c0;
+        margin:5px;
+        list-style:none;
+    }
+
+    a{
+        font-style:none;
+        text-decoration:none;
+    }
+`;
 
 const Login = ()=>{
 
@@ -59,9 +87,14 @@ const Login = ()=>{
         ev.preventDefault();
         
         try{
-            //writeUserData(form.name, form.email, form.password) && setLoading(true);
-            getLogin(form.email, form.password).then( result => console.log(result))
-            
+            //setUser(form.name, form.email, form.password) && setLoading(true);
+            getLogin(form.email, form.password).then( result => {
+                if(result === true){
+
+                }else{
+                    alert("Email ou senha invalidos");
+                }
+            })
         }catch{
             alert("Verifique os campos preenchidos e tente novamente");
         }
@@ -70,6 +103,10 @@ const Login = ()=>{
 
     return(
         <Container>
+            <MenuContainer>
+                <li><a Link="/"> Login </a></li>
+                <li><a Link="cadastro"> Cadastre-se </a></li>
+            </MenuContainer>
             <Form>
                 <h1> Faça seu Cadastro </h1>
 
