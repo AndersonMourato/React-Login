@@ -73,4 +73,26 @@ export function getLogin( email, password ){
     return data;
 }
 
+export function getUser( email ){ 
+    const dbRef = ref(getDatabase());
+    const data = get(child(dbRef, "users/")).then((snapshot) => {
+    if (snapshot.exists()) {
+        alert("loading...");
+        const array = Object.values(snapshot.val());
+        for(let i=0; i < array.length; i++){
+            if(array[i].email === email){
+                return true
+            }
+        }
+    } else {
+        alert("No data available table");
+    }
+    })
+    .catch((error) => {
+        console.error(error);
+    });
+
+    return data;
+}
+
 
